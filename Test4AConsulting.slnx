@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/Tesr4AConsulting.WebForms/Tesr4AConsulting.WebForms.csproj" Id="b3c2cf24-5afd-4183-9373-2c477458a422" />
+  <Project Path="src/Test4AConsulting.MVC/Test4AConsulting.MVC.csproj" />
+</Solution>

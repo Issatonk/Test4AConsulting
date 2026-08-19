@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Test4AConsulting.MVC.Models.Book>
+
+<h1>Домашняя библиотека</h1>
+
+<form asp-action="Index"
+      method="get"
+      class="mb-3">
+
+    <div class="input-group">
+
+        <input type="text"
+               name="search"
+               value="@ViewBag.Search"
+               class="form-control"
+               placeholder="Поиск по оглавлению..." />
+
+        <button type="submit"
+                class="btn btn-primary">
+            Найти
+        </button>
+
+        <a asp-action="Index"
+           class="btn btn-secondary">
+            Сбросить
+        </a>
+
+    </div>
+
+</form>
+<p>
+    <a asp-action="Create"
+       class="btn btn-success">
+        Добавить книгу
+    </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>Автор</th>
+            <th>Год</th>
+            <th>Издательство</th>
+            <th>ISBN</th>
+            <th>Первый пункт оглавления</th>
+            <th>Действие</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.PublicationYear</td>
+                <td>@book.Publisher</td>
+                <td>@book.Isbn</td>
+                <td>@book.FirstContentItem</td>
+                <td>
+                    <a asp-action="Details"
+                       asp-route-id="@book.Id"
+                       class="btn btn-primary btn-sm">
+                        Просмотр
+                    </a>
+
+                    <a asp-action="Edit"
+                       asp-route-id="@book.Id"
+                       class="btn btn-warning btn-sm">
+                        Изменить
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@book.Id"
+                       class="btn btn-danger btn-sm">
+                        Удалить
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,64 @@
+﻿@model Test4AConsulting.MVC.Models.BookDetailsViewModel
+
+<h1>Карточка книги</h1>
+
+<dl class="row">
+
+    <dt class="col-sm-2">Название</dt>
+    <dd class="col-sm-10">
+        @Model.Book.Title
+    </dd>
+
+    <dt class="col-sm-2">Автор</dt>
+    <dd class="col-sm-10">
+        @Model.Book.Author
+    </dd>
+
+    <dt class="col-sm-2">Год издания</dt>
+    <dd class="col-sm-10">
+        @Model.Book.PublicationYear
+    </dd>
+
+    <dt class="col-sm-2">Издательство</dt>
+    <dd class="col-sm-10">
+        @Model.Book.Publisher
+    </dd>
+
+    <dt class="col-sm-2">ISBN</dt>
+    <dd class="col-sm-10">
+        @Model.Book.Isbn
+    </dd>
+
+    <dt class="col-sm-2">Описание</dt>
+    <dd class="col-sm-10">
+        @Model.Book.Description
+    </dd>
+
+</dl>
+
+<h3>Оглавление</h3>
+
+@if (Model.Contents.Any())
+{
+    <ul>
+        @foreach (var item in Model.Contents)
+        {
+            <li>@item.ContentItem</li>
+        }
+    </ul>
+}
+else
+{
+    <p>Оглавление отсутствует.</p>
+}
+
+<a asp-action="Edit"
+   asp-route-id="@Model.Book.Id"
+   class="btn btn-warning">
+    Изменить
+</a>
+
+<a asp-action="Index"
+   class="btn btn-secondary">
+    Назад
+</a>
