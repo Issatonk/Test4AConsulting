@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using System;
 using System.Data;
 using Test4AConsulting.MVC.Models;
 
@@ -72,7 +71,17 @@ public class BookRepository : IBookRepository
 
         await connection.ExecuteAsync(
             "Book_Update",
-            book,
+            new
+            {
+                book.Id,
+                book.Title,
+                book.Author,
+                book.PublicationYear,
+                book.Publisher,
+                book.Isbn,
+                book.Description,
+                book.Contents
+            },
             commandType: CommandType.StoredProcedure);
     }
 
