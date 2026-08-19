@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Configuration;
 using System.Threading.Tasks;
 using System.Web.UI;
 using System.Xml.Linq;
-using System.Configuration;
+using Tesr4AConsulting.WebForms.Helpers;
 using Tesr4AConsulting.WebForms.Models;
 using Tesr4AConsulting.WebForms.Repositories;
 
@@ -20,6 +21,10 @@ namespace Tesr4AConsulting.WebForms.Pages.Books
             object sender,
             EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                CancelLink.NavigateUrl = BookUrls.Books();
+            }
         }
 
         protected void SaveButton_Click(
@@ -86,7 +91,7 @@ namespace Tesr4AConsulting.WebForms.Pages.Books
             var id = await _repository.InsertAsync(book);
 
             Response.Redirect(
-                "~/BookDetails.aspx?id=" + id,
+                BookUrls.BookDetails(id),
                 false);
 
             Context.ApplicationInstance.CompleteRequest();

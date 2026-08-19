@@ -125,7 +125,6 @@
     <asp:HyperLink
         ID="CancelLink"
         runat="server"
-        NavigateUrl="~/Books.aspx"
         CssClass="btn btn-secondary"
         Text="Отмена">
     </asp:HyperLink>

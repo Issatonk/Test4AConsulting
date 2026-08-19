@@ -304,6 +304,7 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Helpers\BookUrls.cs" />
     <Compile Include="Pages\Books\BookCreate.aspx.cs">
       <DependentUpon>BookCreate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

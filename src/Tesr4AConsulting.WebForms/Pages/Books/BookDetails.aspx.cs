@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Configuration;
+using Tesr4AConsulting.WebForms.Helpers;
 using Tesr4AConsulting.WebForms.Repositories;
 
 namespace Tesr4AConsulting.WebForms.Pages.Books
@@ -30,7 +31,7 @@ namespace Tesr4AConsulting.WebForms.Pages.Books
 
             if (!int.TryParse(Request.QueryString["id"], out id))
             {
-                Response.Redirect("~/Books.aspx");
+                Response.Redirect(BookUrls.Books());
                 return;
             }
 
@@ -38,7 +39,7 @@ namespace Tesr4AConsulting.WebForms.Pages.Books
 
             if (book == null)
             {
-                Response.Redirect("~/Books.aspx");
+                Response.Redirect(BookUrls.Books());
                 return;
             }
 
@@ -49,11 +50,11 @@ namespace Tesr4AConsulting.WebForms.Pages.Books
             IsbnLabel.Text = book.Isbn;
             DescriptionLabel.Text = book.Description;
 
-            EditLink.NavigateUrl =
-                "~/BookEdit.aspx?id=" + book.Id;
+            EditLink.NavigateUrl = BookUrls.BookEdit(book.Id);
 
-            DeleteLink.NavigateUrl =
-                "~/BookDelete.aspx?id=" + book.Id;
+            DeleteLink.NavigateUrl = BookUrls.BookDelete(book.Id);
+
+            BackLink.NavigateUrl = BookUrls.Books();
 
             var contents =
                 (await _repository.GetContentsAsync(id))

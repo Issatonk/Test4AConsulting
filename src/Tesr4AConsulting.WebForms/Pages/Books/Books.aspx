@@ -5,6 +5,8 @@
     CodeBehind="Books.aspx.cs"
     Inherits="Tesr4AConsulting.WebForms.Pages.Books.Books" %>
 
+<%@ Import Namespace="Tesr4AConsulting.WebForms.Helpers" %>
+
 <asp:Content ID="Content1"
     ContentPlaceHolderID="MainContent"
     runat="server">
@@ -41,7 +43,7 @@
     <asp:HyperLink
         ID="CreateLink"
         runat="server"
-        NavigateUrl="~/BookCreate.aspx"
+        NavigateUrl="~/Pages/Books/BookCreate.aspx"
         Text="Добавить книгу"
         CssClass="btn btn-success">
     </asp:HyperLink>
@@ -82,7 +84,7 @@
                     <asp:HyperLink
                         runat="server"
                         CssClass="btn btn-primary btn-sm"
-                        NavigateUrl='<%# Eval("Id", "BookDetails.aspx?id={0}") %>'
+                        NavigateUrl='<%# BookUrls.BookDetails(Convert.ToInt32(Eval("Id"))) %>'
                         Text="Просмотр" />
                 </ItemTemplate>
             </asp:TemplateField>
@@ -92,7 +94,7 @@
                     <asp:HyperLink
                         runat="server"
                         CssClass="btn btn-warning btn-sm"
-                        NavigateUrl='<%# Eval("Id", "BookEdit.aspx?id={0}") %>'
+                        NavigateUrl='<%# BookUrls.BookEdit(Convert.ToInt32(Eval("Id"))) %>'
                         Text="Изменить" />
                 </ItemTemplate>
             </asp:TemplateField>
@@ -102,7 +104,7 @@
                     <asp:HyperLink
                         runat="server"
                         CssClass="btn btn-danger btn-sm"
-                        NavigateUrl='<%# Eval("Id", "BookDelete.aspx?id={0}") %>'
+                        NavigateUrl='<%# BookUrls.BookDelete(Convert.ToInt32(Eval("Id"))) %>'
                         Text="Удалить" />
                 </ItemTemplate>
             </asp:TemplateField>

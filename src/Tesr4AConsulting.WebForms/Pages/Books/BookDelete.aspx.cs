@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Configuration;
+using System.Threading.Tasks;
+using System.Web.UI;
+using Tesr4AConsulting.WebForms.Helpers;
 using Tesr4AConsulting.WebForms.Repositories;
 
 namespace Tesr4AConsulting.WebForms.Pages.Books
@@ -12,48 +15,60 @@ namespace Tesr4AConsulting.WebForms.Pages.Books
                     .ConnectionStrings["DefaultConnection"]
                     .ConnectionString);
 
-        protected async void Page_Load(
+        protected void Page_Load(
             object sender,
             EventArgs e)
         {
             if (!IsPostBack)
             {
-                var id = GetBookId();
-
-                if (id == null)
-                {
-                    Response.Redirect("~/Books.aspx");
-                    return;
-                }
-
-                var book =
-                    await _repository.GetByIdAsync(id.Value);
-
-                if (book == null)
-                {
-                    Response.Redirect("~/Books.aspx");
-                    return;
-                }
-
-                TitleLabel.Text = book.Title;
-                AuthorLabel.Text = book.Author;
-                YearLabel.Text =
-                    book.PublicationYear?.ToString() ?? "";
-
-                CancelLink.NavigateUrl =
-                    "~/BookDetails.aspx?id=" + book.Id;
+                RegisterAsyncTask(
+                    new PageAsyncTask(LoadBookAsync));
             }
         }
 
-        protected async void DeleteButton_Click(
-            object sender,
-            EventArgs e)
+        private async Task LoadBookAsync()
         {
             var id = GetBookId();
 
             if (id == null)
             {
-                Response.Redirect("~/Books.aspx");
+                RedirectToBooks();
+                return;
+            }
+
+            var book =
+                await _repository.GetByIdAsync(id.Value);
+
+            if (book == null)
+            {
+                RedirectToBooks();
+                return;
+            }
+
+            TitleLabel.Text = book.Title;
+            AuthorLabel.Text = book.Author;
+            YearLabel.Text =
+                book.PublicationYear?.ToString() ?? "";
+
+            CancelLink.NavigateUrl =
+                BookUrls.BookDetails(book.Id);
+        }
+
+        protected void DeleteButton_Click(
+            object sender,
+            EventArgs e)
+        {
+            RegisterAsyncTask(
+                new PageAsyncTask(DeleteBookAsync));
+        }
+
+        private async Task DeleteBookAsync()
+        {
+            var id = GetBookId();
+
+            if (id == null)
+            {
+                RedirectToBooks();
                 return;
             }
 
@@ -61,7 +76,7 @@ namespace Tesr4AConsulting.WebForms.Pages.Books
             {
                 await _repository.DeleteAsync(id.Value);
 
-                Response.Redirect("~/Books.aspx");
+                RedirectToBooks();
             }
             catch (Exception ex)
             {
@@ -84,6 +99,15 @@ namespace Tesr4AConsulting.WebForms.Pages.Books
             }
 
             return null;
+        }
+
+        private void RedirectToBooks()
+        {
+            Response.Redirect(
+                BookUrls.Books(),
+                false);
+
+            Context.ApplicationInstance.CompleteRequest();
         }
     }
 }

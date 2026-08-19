@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.UI;
 using System.Xml.Linq;
-using System.Configuration;
+using Tesr4AConsulting.WebForms.Helpers;
 using Tesr4AConsulting.WebForms.Models;
 using Tesr4AConsulting.WebForms.Repositories;
 
@@ -45,7 +46,7 @@ namespace Tesr4AConsulting.WebForms.Pages.Books
 
             if (id == null)
             {
-                Response.Redirect("~/Books.aspx");
+                Response.Redirect(BookUrls.Books());
                 return;
             }
 
@@ -53,7 +54,7 @@ namespace Tesr4AConsulting.WebForms.Pages.Books
 
             if (book == null)
             {
-                Response.Redirect("~/Books.aspx");
+                Response.Redirect(BookUrls.Books());
                 return;
             }
 
@@ -69,8 +70,7 @@ namespace Tesr4AConsulting.WebForms.Pages.Books
             ContentsTextBox.Text =
                 ExtractContents(book.Contents);
 
-            CancelLink.NavigateUrl =
-                "~/BookDetails.aspx?id=" + book.Id;
+            CancelLink.NavigateUrl = BookUrls.BookDetails(book.Id);
         }
 
         protected async void SaveButton_Click(
@@ -89,7 +89,7 @@ namespace Tesr4AConsulting.WebForms.Pages.Books
 
             if (id == null)
             {
-                Response.Redirect("~/Books.aspx", false);
+                Response.Redirect(BookUrls.Books(), false);
                 Context.ApplicationInstance.CompleteRequest();
                 return;
             }
@@ -146,7 +146,7 @@ namespace Tesr4AConsulting.WebForms.Pages.Books
             await _repository.UpdateAsync(book);
 
             Response.Redirect(
-                "~/BookDetails.aspx?id=" + id.Value,
+                BookUrls.BookDetails(id.Value),
                 false);
 
             Context.ApplicationInstance.CompleteRequest();

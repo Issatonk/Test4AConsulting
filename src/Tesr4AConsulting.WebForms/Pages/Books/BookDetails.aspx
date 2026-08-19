@@ -92,7 +92,6 @@
     <asp:HyperLink
         ID="BackLink"
         runat="server"
-        NavigateUrl="~/Books.aspx"
         Text="Назад к списку"
         CssClass="btn btn-secondary">
     </asp:HyperLink>
