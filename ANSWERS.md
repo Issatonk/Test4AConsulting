@@ -464,19 +464,20 @@ WHERE Bid.StatusId = 6 AND Bid.IsDocumentCreated = 0
 
 **Ответ**
 
-1.  Нет корня;
+1. Нет корня;
 
-2.  «Конкурс с ценой < 500 000 руб. Символ < будет ошибкой, так как считается началом тэга, необходимо заменить на &lt;
+2. «Конкурс с ценой `< 500 000` руб. Символ `<` будет ошибкой, так как считается началом тэга, необходимо заменить на `&lt;`
 
-3. <PurchaseInfo> </Purchaseinfo> Не совпадает регистр буквы i, xml-регистрозависимый;
+3. `<PurchaseInfo> </Purchaseinfo>` Не совпадает регистр буквы `i`, xml-регистрозависимый;
 
-4. <TypeInfo><TypeName>Конкурс</TypeInfo></TypeName> Закрывающие тэги перепутаны местами;
+4. `<TypeInfo><TypeName>Конкурс</TypeInfo></TypeName>` Закрывающие тэги перепутаны местами;
 
-5. <BidCurrency> Нет закрывающего тэга
+5. `<BidCurrency>` Нет закрывающего тэга;
 
-6. BuId AccessByOrganization=1 Значение атрибута без кавычек AccessByOrganization="1"
+6. `BuId AccessByOrganization=1` Значение атрибута без кавычек `AccessByOrganization="1"`;
 
-7. <RequestNo>2<RequestNo> нет слэша у закрывающего тэга
+7. `<RequestNo>2<RequestNo>` нет слэша у закрывающего тэга.
+
 
 ---
 
